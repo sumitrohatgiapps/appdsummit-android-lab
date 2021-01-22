@@ -9,15 +9,17 @@ import android.os.Bundle;
 import com.appdynamics.demo.android.misc.AsyncTaskListener;
 import com.appdynamics.demo.android.misc.Constants;
 import com.appdynamics.demo.android.misc.UserLoginTask;
+import com.appdynamics.eumagent.runtime.Instrumentation;
 
 public class EntryActivity extends  Activity implements AsyncTaskListener {
 
-	 @Override
-	    public void onCreate(Bundle savedInstanceState)
-	    {
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
             super.onCreate(savedInstanceState);
+			Instrumentation.start("AD-AAB-ABA-HUZ", getApplicationContext());
 
-	      //See if the user credentials are already stored in the system
+	        //See if the user credentials are already stored in the system
 			SharedPreferences settings = getSharedPreferences(Constants.COMMON_PREFS_FILE_NAME,
                     Context.MODE_PRIVATE);
             String mUser = settings.getString("username",null);
@@ -27,10 +29,12 @@ public class EntryActivity extends  Activity implements AsyncTaskListener {
 		       } else {
 		    	  UserLoginTask task = new UserLoginTask(this);
 		    	  task.execute(mUser,settings.getString("password",null));
+		    	  Instrumentation.setUserData("UserID", mUser.toString(),true);
 		       }
 
 	        finish();
 	    }
+
 
 	private void showLogin() {
 		//Go to Login screen if the user has not been registered previously
@@ -47,7 +51,9 @@ public class EntryActivity extends  Activity implements AsyncTaskListener {
 	public void onPostExecute(boolean success, boolean error,
 			String exceptionMessage) {
 		if (success) {
-	    	   showBookList();
+			Instrumentation.startTimer("ShowBookList Timer");
+			showBookList();
+			Instrumentation.stopTimer("ShowBookList Timer");
 		} else {
 			showLogin();
 		}

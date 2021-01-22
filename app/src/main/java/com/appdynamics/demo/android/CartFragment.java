@@ -25,6 +25,7 @@ import com.appdynamics.demo.android.misc.GlobalDataProvider;
 import com.appdynamics.demo.android.model.Item;
 import com.appdynamics.demo.android.service.http.DeleteRequestService;
 import com.appdynamics.demo.android.service.http.GetRequestService;
+import com.appdynamics.eumagent.runtime.Instrumentation;
 
 public class CartFragment extends ListFragment {
     private static final String TAG = CartFragment.class.getName();
@@ -218,6 +219,7 @@ public class CartFragment extends ListFragment {
         }
 	}
 
+	@InfoPoint
 	public void checkoutCart(){
         Log.d(TAG, "checkoutCart(): currentCartItems size = " + currentCartItems.size());
 		if (currentCartItems!=null && currentCartItems.size()>0){
@@ -232,6 +234,7 @@ public class CartFragment extends ListFragment {
 
     public void crashMe() {
         String foo = null;
+
         boolean broken = foo.equals("badcode");
     }
 

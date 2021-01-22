@@ -6,7 +6,7 @@ android {
     buildToolsVersion '25.0.3'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.appdynamics.demo.android.ECommerce"
+        applicationId 'com.appdynamics.demo.android.ECommerce.Rohatgi'
         minSdkVersion 4
         targetSdkVersion 19
     }
@@ -30,4 +30,17 @@ dependencies {
     //Uncomment to use GA plugin from jcenter (choose version)
     compile 'com.appdynamics:appdynamics-runtime:4.2.2.0'
     androidTestCompile fileTree(include: ['*.jar'], dir: 'libs')
+}
+
+
+adeum { // this section added for AppDynamics
+    account {
+        name 'OrderOpsTest-a0Q3400000DgQyFEAV'
+        licenseKey 'd4ecf655-0e9a-4ea6-b112-f3f8ffc71a13'
+    }
+
+    proguardMappingFileUpload {
+        failBuildOnUploadFailure true //should build fail if upload fails? Defaults to false.
+        enabled true //enables automatic uploads. Defaults to true.
+    }
 }

@@ -14,6 +14,7 @@ import com.appdynamics.demo.android.misc.GlobalDataProvider;
 import com.appdynamics.demo.android.misc.UserPrefActivity;
 import com.appdynamics.demo.android.model.Item;
 import com.appdynamics.demo.android.service.http.GetRequestService;
+import com.appdynamics.eumagent.runtime.Instrumentation;
 
 /**
  * An activity representing a single Item detail screen. This activity is only
@@ -30,7 +31,7 @@ public class ItemDetailActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
-
+        Instrumentation.reportMetric("ItemDetailActivity Count", 1);
         // Show the Up button in the action bar.
         getActionBar().setDisplayHomeAsUpEnabled(true);
 

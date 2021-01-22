@@ -25,6 +25,7 @@ import com.appdynamics.demo.android.misc.Constants;
 import com.appdynamics.demo.android.misc.GlobalDataProvider;
 import com.appdynamics.demo.android.misc.UserLoginTask;
 import com.appdynamics.demo.android.misc.UserPrefActivity;
+import com.appdynamics.eumagent.runtime.Instrumentation;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -53,12 +54,12 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		//Instrumentation.start("AD-AAB-ABA-HUZ", getApplicationContext());
+		Instrumentation.startTimer("LoginTimer");
 		setContentView(R.layout.activity_login);
 
 		mUserView = (EditText) findViewById(R.id.username);
 		mUserView.setText(mUser);
-
 		mPasswordView = (EditText) findViewById(R.id.password);
 
 		mLoginFormView = findViewById(R.id.login_form);
@@ -86,6 +87,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 						attemptLogin();
 					}
 				});
+		Instrumentation.stopTimer("LoginTimer");
 	}
 
 	@Override
@@ -140,6 +142,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 			showProgress(true);
 			mAuthTask = new UserLoginTask(this);
 			mAuthTask.execute(mUser,mPassword);
+			//Instrumentation.setUserData("UserID", mUser.toString(),true);
 		}
 	}
 
